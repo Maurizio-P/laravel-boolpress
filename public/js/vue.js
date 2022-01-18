@@ -101,13 +101,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
       // variabili e array
-      msg: 'ciao questo è stampato con vue'
+      msg: 'ciao questo è stampato con vue',
+      posts: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/posts").then(function (resp) {
+      _this.posts = resp.data;
+    });
   }
 });
 
@@ -629,7 +650,17 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("\n    " + _vm._s(_vm.msg) + "\n")])
+  return _c("div", [
+    _c("h1", [_vm._v("\r\n      " + _vm._s(_vm.msg) + "\r\n  ")]),
+    _vm._v(" "),
+    _vm.posts.length === 0
+      ? _c("div", { staticClass: "post" }, [
+          _vm._v("\r\n        Non sono ancora presenti post\r\n    "),
+        ])
+      : _c("div", { staticClass: "card" }, [
+          _c("h2", [_vm._v("qui stampo il post")]),
+        ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
