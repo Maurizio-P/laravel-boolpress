@@ -9,8 +9,10 @@
         Non sono ancora presenti post
     </div>
 
-        <div class="card" v-else>
-            <h2>qui stampo il post</h2>
+        <div class="div" v-else>
+           <div class="card" v-for="post, i  in posts" :key="i">
+               <h5>{{post.title}}</h5>
+           </div>
 
         </div>
 </div>
@@ -28,7 +30,7 @@ export default {
         };
     },
     mounted() {
-        axios.get("/api/posts").then((resp) => {
+        window.axios.get("/api/posts").then((resp) => {
             this.posts = resp.data
         })
     }

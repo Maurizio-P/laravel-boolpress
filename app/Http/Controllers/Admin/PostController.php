@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $categories = Category::all();
+        return view('admin.post.create', compact('categories'));
     }
 
     /**
@@ -39,17 +42,13 @@ class PostController extends Controller
     {
         $data = $request->all();
 
-        $newPost = Post::create($data);
+        $newPost = new Post();
+        $newPost->fill($data);
+        $newPost->user_id = Auth::user()->id;
         $newPost->save();
         return redirect()->route('admin.posts.index');
     }
 
-    public function api()
-    {
-        $posts = Post::all();
-
-        return $posts;
-    }
 
     /**
      * Display the specified resource.

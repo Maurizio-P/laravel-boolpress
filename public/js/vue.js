@@ -114,6 +114,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
@@ -126,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/posts").then(function (resp) {
+    window.axios.get("/api/posts").then(function (resp) {
       _this.posts = resp.data;
     });
   }
@@ -657,9 +659,16 @@ var render = function () {
       ? _c("div", { staticClass: "post" }, [
           _vm._v("\r\n        Non sono ancora presenti post\r\n    "),
         ])
-      : _c("div", { staticClass: "card" }, [
-          _c("h2", [_vm._v("qui stampo il post")]),
-        ]),
+      : _c(
+          "div",
+          { staticClass: "div" },
+          _vm._l(_vm.posts, function (post, i) {
+            return _c("div", { key: i, staticClass: "card" }, [
+              _c("h5", [_vm._v(_vm._s(post.title))]),
+            ])
+          }),
+          0
+        ),
   ])
 }
 var staticRenderFns = []

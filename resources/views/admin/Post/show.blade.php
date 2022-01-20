@@ -7,6 +7,8 @@
 <div class="post">
     <h2>{{$post['title']}}</h2>
     <p>{{$post['article']}}</p>
+    <h5>Autore: {{$post->user->name}}</h5>
+    <h5>Categoria: {{$post->category->name}}</h5>
 </div>
 
 <a href="{{route('admin.posts.edit', $post->id)}} ">Modifica post</a>
@@ -22,4 +24,6 @@
         class="">Elimina post</button>
     </form>
 </div>
-@endsection
+
+    {{-- @dump($post) --}}
+    @endsection
