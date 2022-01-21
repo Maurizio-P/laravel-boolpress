@@ -11,6 +11,16 @@
     <h5>Categoria: {{$post->category->name}}</h5>
 </div>
 
+<h6>Tag</h6>
+<div class="d-flex">
+    @foreach ($post->tags as $tag)
+        
+    <div class="badge">
+        {{$tag->name}}
+    </div>
+    @endforeach
+</div>
+
 <a href="{{route('admin.posts.edit', $post->id)}} ">Modifica post</a>
 
 <div style="margin-top: 15px">

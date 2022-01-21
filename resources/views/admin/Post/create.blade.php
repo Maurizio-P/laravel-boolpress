@@ -21,6 +21,15 @@
         @endforeach
     </select>
 
+    <label for="tag" class="form-label">Tag</label>
+    <select name="tags[]" id="tag" class="form-control" multiple>
+        @foreach ($tags as $tag)
+            <option value="{{$tag->id}}">{{$tag->name}}</option>
+            {{-- <input type="checkbox" name="tags[]" id="tag" value="{{$tag->id}}" {{$tag->name}}> --}}
+        @endforeach
+    </select>
+
+
     <button class="btn btn-success" type="submit"> Aggiungi post</button>
 
 </form>
