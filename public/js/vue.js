@@ -116,21 +116,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
       // variabili e array
       msg: 'ciao questo è stampato con vue',
-      posts: []
+      posts: [],
+      currentPage: 1,
+      lastPage: null
     };
   },
-  mounted: function mounted() {
-    var _this = this;
+  methods: {
+    callAxios: function callAxios() {
+      var _this = this;
 
-    window.axios.get("/api/posts").then(function (resp) {
-      _this.posts = resp.data;
-    });
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      window.axios.get("/api/posts?page=" + page).then(function (resp) {
+        _this.posts = resp.data.data;
+        _this.currentPage = resp.data.current_page;
+        _this.lastPage = resp.data.last_page;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.callAxios();
   }
 });
 
@@ -669,6 +695,38 @@ var render = function () {
           }),
           0
         ),
+    _vm._v(" "),
+    _c("div", { staticClass: "box-link d-flex my-4" }, [
+      _c(
+        "button",
+        {
+          staticClass: "page-link",
+          on: {
+            click: function ($event) {
+              return _vm.callAxios(_vm.currentPage - 1)
+            },
+          },
+        },
+        [_vm._v("\r\n            Pagina precedente\r\n        ")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "page-link" }, [
+        _vm._v("\r\n            " + _vm._s(_vm.currentPage) + "\r\n        "),
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "page-link",
+          on: {
+            click: function ($event) {
+              return _vm.callAxios(_vm.currentPage + 1)
+            },
+          },
+        },
+        [_vm._v("\r\n            Pagina successiva\r\n        ")]
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []

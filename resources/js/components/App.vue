@@ -15,6 +15,22 @@
            </div>
 
         </div>
+
+    <div class="box-link d-flex my-4">
+
+        <button class="page-link" @click="callAxios(currentPage - 1)">
+            Pagina precedente
+        </button>
+
+        <button class="page-link">
+            {{currentPage}}
+        </button>
+        
+        <button class="page-link" @click="callAxios(currentPage + 1)">
+            Pagina successiva
+        </button>
+    </div>
+        
 </div>
   
 </template>
@@ -27,12 +43,22 @@ export default {
             // variabili e array
             msg: 'ciao questo è stampato con vue',
             posts: [],
+            currentPage: 1,
+            lastPage: null,
         };
     },
-    mounted() {
-        window.axios.get("/api/posts").then((resp) => {
-            this.posts = resp.data
+    methods:{
+        callAxios(page = 1){
+            window.axios.get("/api/posts?page=" + page).then((resp) => {
+            this.posts = resp.data.data;
+            this.currentPage = resp.data.current_page;
+            this.lastPage = resp.data.last_page;
         })
+        }
+    },
+
+    mounted() {
+        this.callAxios()
     }
 }
 </script>

@@ -10,9 +10,9 @@ class PostController extends Controller
 {
     public function api()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
 
-        $postWithCategory = Post::with('category')->get();
+        $posts = Post::with('category')->paginate(2);
 
         return $posts;
     }

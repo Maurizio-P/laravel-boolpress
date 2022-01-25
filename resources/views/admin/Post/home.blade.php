@@ -7,6 +7,7 @@
 <a href="{{ route('admin.posts.create') }}">Nuovo post</a>
 
 <div class="container">
+    @dump($posts)
     @foreach ($posts as $post)
     <div class="post-container mt-4 d-flex justify-content-between align-items-center" style="border: 1px solid black; background-color:white">
         <div class="text-post">
@@ -20,5 +21,9 @@
         </div>
     </div>
     @endforeach
+
+    <div class="box-page d-flex my-4">
+        {{ $posts->links() }}
+    </div>
 </div>
 @endsection
