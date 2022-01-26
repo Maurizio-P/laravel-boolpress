@@ -1,38 +1,16 @@
 <template>
 <div>
-
-  <h1>
-      {{msg}}
-  </h1>
-
-    <div class="post" v-if="posts.length === 0">
-        Non sono ancora presenti post
-    </div>
-
-        <div class="div" v-else>
-           <div class="card" v-for="post, i  in posts" :key="i">
-               <h5>{{post.title}}</h5>
-           </div>
-
-        </div>
-
-    <div class="box-link d-flex my-4">
-
-        <button class="page-link" @click="callAxios(currentPage - 1)">
-            Pagina precedente
-        </button>
-
-        <button class="page-link">
-            {{currentPage}}
-        </button>
-        
-        <button class="page-link" @click="callAxios(currentPage + 1)">
-            Pagina successiva
-        </button>
-    </div>
-        
+    <nav>
+        <ul class="navbar-nav">
+            <li class="nav-items">
+                <router-link class="nav-link" to="/">
+                    Home
+                </router-link>
+            </li>
+        </ul>
+    </nav>
+    <router-view></router-view>
 </div>
-  
 </template>
 
 <script>
@@ -42,23 +20,7 @@ export default {
         return {
             // variabili e array
             msg: 'ciao questo è stampato con vue',
-            posts: [],
-            currentPage: 1,
-            lastPage: null,
         };
-    },
-    methods:{
-        callAxios(page = 1){
-            window.axios.get("/api/posts?page=" + page).then((resp) => {
-            this.posts = resp.data.data;
-            this.currentPage = resp.data.current_page;
-            this.lastPage = resp.data.last_page;
-        })
-        }
-    },
-
-    mounted() {
-        this.callAxios()
     }
 }
 </script>

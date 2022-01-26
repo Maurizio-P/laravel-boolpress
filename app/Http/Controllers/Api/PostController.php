@@ -16,4 +16,10 @@ class PostController extends Controller
 
         return $posts;
     }
+
+    public function show($id){
+        $post = Post::where('id', $id)->first();
+
+        return $post;
+    }
 }

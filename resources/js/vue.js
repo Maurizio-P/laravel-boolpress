@@ -19,8 +19,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import App from './components/App';
+import router from './router.js'
 
 const app = new Vue({
     el: '#app',
+    router,
     render: h => h(App)
 });
