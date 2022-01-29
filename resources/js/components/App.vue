@@ -7,6 +7,11 @@
                     Home
                 </router-link>
             </li>
+            <li class="nav-items">
+                <router-link class="nav-link" to="/about">
+                    About
+                </router-link>
+            </li>
         </ul>
     </nav>
     <router-view></router-view>
@@ -25,6 +30,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.router-link-exact-active{
+    color: red!important;
+}
 
 </style>

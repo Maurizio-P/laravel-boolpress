@@ -13,8 +13,9 @@ class PostController extends Controller
         // $posts = Post::all();
 
         $posts = Post::with('category')->paginate(2);
+        $categories = Category::all();
 
-        return $posts;
+        return ['posts'=> $posts,'categories' => $categories];
     }
 
     public function show($id){
