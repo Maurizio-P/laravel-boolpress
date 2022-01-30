@@ -239,6 +239,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   data: function data() {
@@ -248,7 +255,8 @@ __webpack_require__.r(__webpack_exports__);
       posts: [],
       currentPage: 1,
       lastPage: null,
-      categories: []
+      categories: [],
+      loader: false
     };
   },
   methods: {
@@ -256,11 +264,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.loader = false;
       window.axios.get("/api/posts?page=" + page).then(function (resp) {
         _this.posts = resp.data.posts.data;
         _this.currentPage = resp.data.posts.current_page;
         _this.lastPage = resp.data.posts.last_page;
         _this.categories = resp.data.categories;
+        _this.loader = true;
       });
     }
   },
@@ -1630,93 +1640,112 @@ var render = function () {
   return _c("div", [
     _c("h1", [_vm._v("\n    " + _vm._s(_vm.msg) + "\n  ")]),
     _vm._v(" "),
-    _vm.posts.length === 0
-      ? _c("div", { staticClass: "post" }, [
-          _vm._v("\n    Non sono ancora presenti post\n  "),
-        ])
-      : _c(
+    _vm.loader === false
+      ? _c(
           "div",
-          { staticClass: "div" },
-          _vm._l(_vm.posts, function (post, i) {
-            return _c(
-              "div",
-              { key: i, staticClass: "card" },
-              [
-                _c(
-                  "router-link",
-                  { attrs: { to: { name: "show", params: { id: post.id } } } },
-                  [_c("h5", [_vm._v(_vm._s(post.title))])]
-                ),
-              ],
-              1
-            )
-          }),
-          0
-        ),
-    _vm._v(" "),
-    _c("div", { staticClass: "box-link d-flex my-4" }, [
-      _vm.currentPage > 1
-        ? _c(
-            "button",
-            {
-              staticClass: "page-link",
-              on: {
-                click: function ($event) {
-                  return _vm.callAxios(_vm.currentPage - 1)
-                },
-              },
-            },
-            [_vm._v("\n      Pagina precedente\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("button", { staticClass: "page-link" }, [
-        _vm._v("\n      " + _vm._s(_vm.currentPage) + "\n    "),
-      ]),
-      _vm._v(" "),
-      _vm.currentPage != _vm.lastPage
-        ? _c(
-            "button",
-            {
-              staticClass: "page-link",
-              on: {
-                click: function ($event) {
-                  return _vm.callAxios(_vm.currentPage + 1)
-                },
-              },
-            },
-            [_vm._v("\n      Pagina successiva\n    ")]
-          )
-        : _vm._e(),
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "category-box my-4" },
-      [
-        _c("h4", [_vm._v("Categorie disponibili:")]),
-        _vm._v(" "),
-        _vm._l(_vm.categories, function (category) {
-          return _c(
-            "div",
-            { key: category.id, staticClass: "box-link" },
-            [
-              _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: { name: "category.show", params: { id: category.id } },
-                  },
-                },
-                [_vm._v("\n        " + _vm._s(category.name) + "\n      ")]
+          { staticClass: "spinner-border", attrs: { role: "status" } },
+          [_c("span", { staticClass: "visually-hidden" })]
+        )
+      : _c("div", { staticClass: "resp-ok" }, [
+          _vm.posts.length === 0
+            ? _c("div", { staticClass: "post" }, [
+                _vm._v("\n    Non sono ancora presenti post\n  "),
+              ])
+            : _c(
+                "div",
+                { staticClass: "div" },
+                _vm._l(_vm.posts, function (post, i) {
+                  return _c(
+                    "div",
+                    { key: i, staticClass: "card" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: { name: "show", params: { id: post.id } },
+                          },
+                        },
+                        [_c("h5", [_vm._v(_vm._s(post.title))])]
+                      ),
+                    ],
+                    1
+                  )
+                }),
+                0
               ),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-link d-flex my-4" }, [
+            _vm.currentPage > 1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "page-link",
+                    on: {
+                      click: function ($event) {
+                        return _vm.callAxios(_vm.currentPage - 1)
+                      },
+                    },
+                  },
+                  [_vm._v("\n      Pagina precedente\n    ")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("button", { staticClass: "page-link" }, [
+              _vm._v("\n      " + _vm._s(_vm.currentPage) + "\n    "),
+            ]),
+            _vm._v(" "),
+            _vm.currentPage != _vm.lastPage
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "page-link",
+                    on: {
+                      click: function ($event) {
+                        return _vm.callAxios(_vm.currentPage + 1)
+                      },
+                    },
+                  },
+                  [_vm._v("\n      Pagina successiva\n    ")]
+                )
+              : _vm._e(),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "category-box my-4" },
+            [
+              _c("h4", [_vm._v("Categorie disponibili:")]),
+              _vm._v(" "),
+              _vm._l(_vm.categories, function (category) {
+                return _c(
+                  "div",
+                  { key: category.id, staticClass: "box-link" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            name: "category.show",
+                            params: { id: category.id },
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n        " + _vm._s(category.name) + "\n      "
+                        ),
+                      ]
+                    ),
+                  ],
+                  1
+                )
+              }),
             ],
-            1
-          )
-        }),
-      ],
-      2
-    ),
+            2
+          ),
+        ]),
   ])
 }
 var staticRenderFns = []

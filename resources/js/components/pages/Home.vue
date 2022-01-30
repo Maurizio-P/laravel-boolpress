@@ -4,6 +4,12 @@
       {{ msg }}
     </h1>
 
+    <div v-if="loader === false" class="spinner-border" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+    <div class="resp-ok" v-else>
+
+    
     <div class="post" v-if="posts.length === 0">
       Non sono ancora presenti post
     </div>
@@ -46,6 +52,7 @@
         </router-link>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -60,15 +67,18 @@ export default {
       currentPage: 1,
       lastPage: null,
       categories: [],
+      loader: false,
     };
   },
   methods: {
     callAxios(page = 1) {
+      this.loader = false
       window.axios.get("/api/posts?page=" + page).then((resp) => {
         this.posts = resp.data.posts.data;
         this.currentPage = resp.data.posts.current_page;
         this.lastPage = resp.data.posts.last_page;
         this.categories = resp.data.categories;
+        this.loader = true
       });
     },
   },
