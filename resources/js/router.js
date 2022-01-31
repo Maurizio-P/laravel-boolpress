@@ -5,6 +5,7 @@ import Home from "./components/pages/Home.vue"
 import Show from "./components/pages/Show.vue"
 import About from "./components/pages/About.vue"
 import CategoryShow from "./components/pages/categories/Show.vue"
+import Contact from "./components/pages/Contact.vue"
 
 
 Vue.use(VueRouter);
@@ -26,6 +27,11 @@ const router = new VueRouter({
             path: '/about',
             name: 'about',
             component: About
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: Contact
         },
         {
             path: '/categories/:id',

@@ -4,12 +4,15 @@
 <h1>Pagina admin.create.home</h1>
 <p>Pagina per creare un nuovo post</p>
 
-<form method="POST" action="{{ route('admin.posts.store') }}">
+<form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
     @csrf
     {{-- title  --}}
     <label for="title"
     class="col-md-4 col-form-label text-md-right">Title</label>
     <input id="title" type="text" class="form-control" name="title" value="title">
+
+    <label for="cover_img">Cover Post</label>
+    <input type="file" id="cover_img" class="form-control" name="cover_img">
 
     <label for="article" class="col-md-4 col-form-label text-md-right" >Article</label>
     <textarea name="article" id="article" cols="30" rows="10"></textarea>

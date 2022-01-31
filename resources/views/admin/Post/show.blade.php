@@ -3,12 +3,17 @@
 @section('content')
 <h1>Pagina admin.post.show</h1>
 <p>Qui mostro il singolo post</p>
+@dump($post)
 
 <div class="post">
     <h2>{{$post['title']}}</h2>
     <p>{{$post['article']}}</p>
     <h5>Autore: {{$post->user->name}}</h5>
     <h5>Categoria: {{$post->category->name}}</h5>
+
+    <div class="col-7 cover-container">
+        <img src="{{asset('storage/' . $post->cover_img) }}" alt="">
+    </div>
 </div>
 
 <h6>Tag</h6>

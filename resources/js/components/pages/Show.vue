@@ -4,6 +4,9 @@
 
     <h3>TItolo: {{post.title}}</h3>
     <p>{{post.article}}</p>
+            <div class="col-7 cover-container">
+                <img :src="'/storage/' + post.cover_img" alt="cover">
+            </div>
   </div>
 </template>
 

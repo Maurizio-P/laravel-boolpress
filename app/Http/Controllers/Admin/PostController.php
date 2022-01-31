@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -49,6 +50,7 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->user_id = Auth::user()->id;
+        $newPost->cover_img = Storage::put('posts', $data['cover_img']);
         $newPost->save();
 
         $newPost->tags()->sync($data['tags']);

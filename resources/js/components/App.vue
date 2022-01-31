@@ -12,6 +12,11 @@
                     About
                 </router-link>
             </li>
+            <li class="nav-items">
+                <router-link class="nav-link" to="/contact">
+                    Contact
+                </router-link>
+            </li>
         </ul>
     </nav>
     <router-view></router-view>
